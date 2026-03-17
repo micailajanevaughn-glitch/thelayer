@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Micaila Vaughn</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0E1113;--surf:#1A2226;--surf2:#1F2A2E;
+  --teal:#0F6F73;--aqua:#1ECAD3;--aqua2:rgba(30,202,211,0.12);
+  --text:#E8EEF0;--muted:#8A9BA3;--dim:#4A6068;--line:#1F2E32;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* ── SPLASH ───────────────────────────────────────────── */
+#splash{
+  position:fixed;inset:0;z-index:999;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;
+  transition:opacity 0.7s ease;
+}
+#splash.hide{opacity:0;pointer-events:none}
+.splash-eyebrow{
+  font-size:10.5px;font-weight:600;letter-spacing:0.28em;
+  color:var(--teal);text-transform:uppercase;opacity:0;
+  animation:fadeIn 0.6s ease 0.3s forwards;
+}
+.splash-headline{
+  font-family:var(--serif);font-size:clamp(40px,7vw,80px);
+  font-weight:700;color:var(--text);line-height:1.05;
+  text-align:center;opacity:0;
+  animation:fadeIn 0.7s ease 0.7s forwards;
+}
+.splash-headline em{
+  font-style:italic;color:var(--aqua);display:block;
+}
+.splash-sub{
+  font-size:13px;color:var(--dim);letter-spacing:0.06em;
+  opacity:0;animation:fadeIn 0.6s ease 1.2s forwards;
+}
+.splash-cta{
+  margin-top:12px;padding:13px 36px;border-radius:2px;
+  background:transparent;border:1px solid var(--teal);
+  color:var(--aqua);font-size:12px;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;
+  opacity:0;animation:fadeIn 0.6s ease 1.6s forwards;
+  transition:background 0.2s,color 0.2s;
+}
+.splash-cta:hover{background:var(--teal);color:var(--bg)}
+.splash-bar{
+  position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--teal),var(--aqua),transparent);
+  opacity:0;animation:fadeIn 1s ease 0.5s forwards;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── NAV ──────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:60px;
+  background:rgba(14,17,19,0.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav-brand{
+  font-family:var(--serif);font-size:15px;font-weight:700;
+  color:var(--text);letter-spacing:0.02em;cursor:pointer;
+  text-decoration:none;
+}
+.nav-brand span{color:var(--aqua)}
+.nav-tabs{display:flex;gap:4px}
+.nav-tab{
+  padding:8px 18px;border-radius:30px;
+  font-size:12px;font-weight:500;letter-spacing:0.06em;
+  color:var(--muted);background:transparent;border:none;cursor:pointer;
+  text-transform:uppercase;transition:all 0.2s;white-space:nowrap;
+}
+.nav-tab:hover{color:var(--text)}
+.nav-tab.active{
+  color:var(--aqua);background:var(--aqua2);
+}
+.nav-cta{
+  padding:8px 20px;border-radius:2px;
+  font-size:11.5px;font-weight:600;letter-spacing:0.1em;
+  color:var(--bg);background:var(--aqua);border:none;cursor:pointer;
+  text-transform:uppercase;transition:opacity 0.2s;
+}
+.nav-cta:hover{opacity:0.85}
+
+/* ── PAGE ─────────────────────────────────────────────── */
+.page{max-width:1060px;margin:0 auto;padding:0 48px 96px}
+
+/* ── VIEWS ────────────────────────────────────────────── */
+.view{display:none;padding-top:80px;animation:fadeUp 0.35s ease both}
+.view.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── HERO (overview) ──────────────────────────────────── */
+.hero{
+  display:grid;grid-template-columns:1fr 300px;gap:64px;
+  align-items:start;padding:72px 0 64px;
+  border-bottom:1px solid var(--line);
+}
+.hero-eyebrow{
+  font-size:10.5px;font-weight:600;letter-spacing:0.22em;
+  color:var(--aqua);text-transform:uppercase;margin-bottom:20px;
+}
+.hero-name{
+  font-family:var(--serif);font-size:clamp(44px,5.5vw,66px);
+  font-weight:700;line-height:1.04;color:var(--text);margin-bottom:18px;
+}
+.hero-titles{display:flex;flex-direction:column;gap:5px;margin-bottom:24px}
+.hero-title{
+  font-family:var(--serif);font-style:italic;
+  font-size:17px;color:var(--muted);line-height:1.35;
+}
+.hero-title+.hero-title{padding-left:14px;position:relative}
+.hero-title+.hero-title::before{
+  content:'';position:absolute;left:0;top:50%;
+  transform:translateY(-50%);width:6px;height:1px;background:var(--dim);
+}
+.hero-summary{
+  font-size:14px;color:var(--muted);line-height:1.85;
+  border-left:2px solid var(--teal);padding-left:18px;max-width:520px;
+  margin-bottom:28px;
+}
+.hero-contact{display:flex;flex-wrap:wrap;gap:18px}
+.hero-contact a,.hero-contact span{
+  font-size:12px;color:var(--dim);text-decoration:none;letter-spacing:0.04em;
+  transition:color 0.2s;
+}
+.hero-contact a:hover{color:var(--aqua)}
+
+.portrait-wrap{
+  width:100%;aspect-ratio:3/4;border-radius:3px;overflow:hidden;
+  background:var(--surf2);position:relative;
+}
+.portrait-wrap::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(14,17,19,0.1) 0%,rgba(15,111,115,0.1) 60%,rgba(14,17,19,0.5) 100%);
+}
+.portrait-inner{
+  width:100%;height:100%;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:14px;
+  background:linear-gradient(135deg,#1a2428 0%,#0e1e22 100%);
+}
+.portrait-inner svg{width:72px;height:72px;opacity:0.15}
+.portrait-inner span{font-size:10px;letter-spacing:0.15em;color:var(--dim);text-transform:uppercase}
+.portrait-bar{
+  position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--teal),var(--aqua));z-index:2;
+}
+
+/* quick-stats strip */
+.stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:3px;
+  margin-top:40px;overflow:hidden;
+}
+.stat{
+  background:var(--surf);padding:24px 28px;
+}
+.stat-num{
+  font-family:var(--serif);font-size:34px;font-weight:700;
+  color:var(--aqua);display:block;line-height:1;margin-bottom:6px;
+}
+.stat-label{font-size:11.5px;color:var(--muted);letter-spacing:0.04em}
+
+/* ── SECTION SCAFFOLD ─────────────────────────────────── */
+.section{padding:56px 0 0}
+.sec-label{
+  font-size:10.5px;font-weight:600;letter-spacing:0.24em;
+  color:var(--aqua);text-transform:uppercase;
+  display:flex;align-items:center;gap:16px;margin-bottom:32px;
+}
+.sec-label::after{
+  content:'';flex:1;height:1px;
+  background:linear-gradient(90deg,var(--line),transparent);
+}
+
+/* ── EXPERIENCE ───────────────────────────────────────── */
+.exp-item{
+  display:grid;grid-template-columns:192px 1fr;gap:40px;
+  padding:32px 0;border-bottom:1px solid #141C1F;
+  position:relative;transition:background 0.2s;
+}
+.exp-item::before{
+  content:'';position:absolute;left:-48px;top:0;bottom:0;width:2px;
+  background:var(--surf2);transition:background 0.3s;
+}
+.exp-item:hover::before{background:linear-gradient(180deg,var(--teal),transparent)}
+.exp-dates{font-size:11px;letter-spacing:0.06em;color:var(--dim);text-transform:uppercase;margin-bottom:6px}
+.exp-company{font-family:var(--serif);font-size:16px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:4px}
+.exp-loc{font-size:11.5px;color:var(--dim)}
+.exp-title{font-size:11.5px;font-weight:600;color:var(--aqua);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:12px}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:8px}
+.exp-bullets li{font-size:13.5px;color:var(--muted);line-height:1.75;padding-left:16px;position:relative}
+.exp-bullets li::before{
+  content:'';position:absolute;left:0;top:12px;
+  width:5px;height:1px;background:var(--teal);
+}
+
+/* ── SKILLS ───────────────────────────────────────────── */
+.skill-group{margin-bottom:36px}
+.skill-group-title{
+  font-size:11px;font-weight:600;letter-spacing:0.14em;
+  color:var(--muted);text-transform:uppercase;margin-bottom:14px;
+}
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag{
+  padding:7px 16px;border-radius:2px;font-size:12.5px;font-weight:400;
+  border:1px solid var(--line);color:var(--muted);background:rgba(31,42,46,0.4);
+  transition:all 0.22s;cursor:default;letter-spacing:0.02em;
+}
+.tag:hover{border-color:var(--teal);color:var(--text);background:rgba(15,111,115,0.12)}
+.tag.hi{border-color:rgba(30,202,211,0.28);color:var(--aqua);background:rgba(30,202,211,0.07)}
+.tool-pill{
+  padding:6px 16px;border-radius:20px;font-size:12px;
+  color:var(--muted);background:rgba(26,34,38,0.85);border:1px solid rgba(60,85,95,0.7);
+  transition:all 0.2s;cursor:pointer;letter-spacing:0.01em;
+}
+.tool-pill:hover{color:var(--text);border-color:var(--teal);background:rgba(15,111,115,0.15);transform:translateY(-1px)}
+
+/* ── EDUCATION ────────────────────────────────────────── */
+.edu-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.edu-card{
+  background:var(--surf);border:1px solid var(--line);border-radius:3px;
+  padding:22px;transition:border-color 0.25s;
+}
+.edu-card:hover{border-color:var(--teal)}
+.edu-deg{font-family:var(--serif);font-size:14px;color:var(--text);line-height:1.35;margin-bottom:6px}
+.edu-school{font-size:11.5px;color:var(--dim)}
+.edu-badge{
+  display:inline-block;margin-top:8px;padding:3px 10px;
+  border-radius:10px;font-size:10.5px;letter-spacing:0.06em;
+  background:rgba(30,202,211,0.08);color:var(--aqua);border:1px solid rgba(30,202,211,0.2);
+}
+
+/* ── COVER LETTER ─────────────────────────────────────── */
+.cl-wrap{max-width:680px;padding-top:64px}
+.cl-meta{
+  display:flex;flex-direction:column;gap:4px;
+  margin-bottom:40px;padding-bottom:32px;border-bottom:1px solid var(--line);
+}
+.cl-meta-name{
+  font-family:var(--serif);font-size:22px;font-weight:700;color:var(--text);margin-bottom:8px;
+}
+.cl-meta-line{font-size:12px;color:var(--dim);letter-spacing:0.04em}
+.cl-date{
+  font-size:12px;color:var(--dim);letter-spacing:0.04em;
+  margin-bottom:28px;
+}
+.cl-addr{
+  font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:28px;
+}
+.cl-salutation{
+  font-family:var(--serif);font-size:17px;color:var(--text);
+  margin-bottom:24px;
+}
+.cl-body p{
+  font-size:14px;color:var(--muted);line-height:1.9;margin-bottom:20px;
+}
+.cl-body p strong{color:var(--text);font-weight:500}
+.cl-closing{
+  margin-top:40px;
+}
+.cl-closing p{font-size:14px;color:var(--muted);margin-bottom:32px}
+.cl-sig{
+  font-family:var(--serif);font-size:20px;color:var(--text);
+}
+
+/* ── CONTACT VIEW ─────────────────────────────────────── */
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:16px;
+  max-width:640px;padding-top:64px;
+}
+.contact-card{
+  background:var(--surf);border:1px solid var(--line);border-radius:3px;
+  padding:28px;transition:border-color 0.25s;
+}
+.contact-card:hover{border-color:var(--teal)}
+.contact-card-label{
+  font-size:10.5px;font-weight:600;letter-spacing:0.2em;
+  color:var(--aqua);text-transform:uppercase;margin-bottom:10px;
+}
+.contact-card-val{
+  font-family:var(--serif);font-size:16px;color:var(--text);
+  text-decoration:none;display:block;
+}
+a.contact-card-val:hover{color:var(--aqua)}
+.contact-note{
+  grid-column:1/-1;font-size:13.5px;color:var(--muted);
+  line-height:1.8;margin-top:8px;
+  border-left:2px solid var(--teal);padding-left:18px;
+}
+
+/* ── FOOTER ───────────────────────────────────────────── */
+footer{
+  margin-top:80px;padding-top:28px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-left{font-family:var(--serif);font-size:13px;color:var(--dim)}
+.footer-right{display:flex;gap:20px}
+.footer-right a{font-size:11px;color:var(--dim);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s}
+.footer-right a:hover{color:var(--aqua)}
+
+/* ── COVER LETTER CTA ─────────────────────────────────── */
+.cl-portfolio-cta{
+  margin-top:52px;padding-top:40px;
+  border-top:1px solid var(--line);
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+}
+.cl-cta-btn{
+  padding:14px 32px;border-radius:2px;
+  background:var(--aqua);color:var(--bg);
+  font-family:var(--sans);font-size:13px;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;
+  border:none;cursor:pointer;
+  transition:opacity 0.2s,transform 0.2s;
+}
+.cl-cta-btn:hover{opacity:0.88;transform:translateX(3px)}
+.cl-cta-sub{
+  font-size:11px;color:var(--dim);
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────── */
+@media(max-width:780px){
+  .page{padding:0 20px 72px}
+  nav{padding:0 20px}
+  .nav-tabs .nav-tab{padding:7px 10px;font-size:10.5px}
+  .nav-cta{display:none}
+  .hero{grid-template-columns:1fr;gap:40px}
+  .hero-portrait{order:-1;max-width:220px}
+  .exp-item{grid-template-columns:1fr;gap:10px}
+  .exp-item::before{display:none}
+  .stats{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  #splash,nav,.stats,#view-overview,#view-skills,#view-coverletter,#view-contact,footer,.btn-print{display:none!important}
+  #view-experience{display:block!important;padding-top:24px}
+  body{background:#fff;color:#111;font-size:11pt}
+  .exp-company{color:#0F6F73}
+  .sec-label{color:#0F6F73;border-color:#0F6F73}
+  .exp-item::before{background:#0F6F73}
+  a{color:#111;text-decoration:none}
+}
+.btn-print{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 22px;border-radius:2px;
+  background:transparent;border:1px solid var(--teal);
+  color:var(--aqua);font-size:11px;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;
+  transition:background 0.2s,color 0.2s;
+}
+.btn-print:hover{background:var(--teal);color:var(--bg)}
+.btn-print svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+</style>
+</head>
+<body>
+
+<!-- ── SPLASH ─────────────────────────────────────────────────── -->
+<div id="splash">
+  <span class="splash-eyebrow">For Lara &nbsp;·&nbsp; USESI</span>
+  <h1 class="splash-headline">The layer<em>USESI is missing.</em></h1>
+  <p class="splash-sub">A note from Micaila Vaughn</p>
+  <button class="splash-cta" onclick="dismissSplash()">Show me.</button>
+  <div class="splash-bar"></div>
+</div>
+
+<!-- ── NAV ──────────────────────────────────────────────────── -->
+<nav>
+  <a class="nav-brand" onclick="show('overview')">Micaila <span>Vaughn</span></a>
+  <div class="nav-tabs">
+    <button class="nav-tab" onclick="show('overview')">Overview</button>
+    <button class="nav-tab" onclick="show('experience')">Experience</button>
+    <button class="nav-tab" onclick="show('skills')">Skills</button>
+    <button class="nav-tab active" onclick="show('coverletter')">Cover Letter</button>
+    <button class="nav-tab" onclick="show('contact')">Contact</button>
+  </div>
+  <button class="nav-cta" onclick="show('contact')">Get in Touch</button>
+</nav>
+
+<div class="page">
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- VIEW: OVERVIEW                                             -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="view" id="view-overview">
+
+  <section class="hero">
+    <div class="hero-left">
+      <p class="hero-eyebrow">Denver, CO &mdash; Available for Strategic Engagements</p>
+      <h1 class="hero-name">Micaila<br>Vaughn</h1>
+      <div class="hero-titles">
+        <span class="hero-title">Lighting Industry Strategist</span>
+        <span class="hero-title">AI &amp; Systems Integration</span>
+        <span class="hero-title">Revenue Operations</span>
+      </div>
+      <p class="hero-summary">20+ years across the architectural lighting lifecycle — and founder of Teloric, an AI strategy and change management firm dedicated to helping companies navigate, operationalize, and monetize the power of AI to drive the future of work. Trusted advisor to executives, VPs, and CEOs ready to stop waiting and start leading in the age of AI.
+      </p>
+      <div class="hero-contact">
+        <span>303.981.7338</span>
+        <a href="mailto:micailajanevaughn@gmail.com">micailajanevaughn@gmail.com</a>
+        <a href="#">linkedin.com/in/micailavaughn</a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <div class="portrait-wrap">
+        <!-- To use a real photo: replace the portrait-inner div below with:
+             <img src="your-photo.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top"> -->
+        <div class="portrait-inner">
+          <span style="font-family:var(--serif);font-size:56px;font-weight:700;color:var(--aqua);letter-spacing:-0.02em;opacity:0.85">MV</span>
+          <span style="font-size:9px;letter-spacing:0.2em;color:var(--dim);text-transform:uppercase;margin-top:4px">Add Photo</span>
+        </div>
+        <div class="portrait-bar"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">20+</span>
+      <span class="stat-label">Years in Architectural Lighting</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" style="font-size:20px;line-height:1.2">Tech Translator</span>
+      <span class="stat-label">Making AI understandable, adoptable &amp; monetizable</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" style="font-size:20px;line-height:1.2">Change Catalyst</span>
+      <span class="stat-label">Where complexity becomes measurable impact</span>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="sec-label">About Micaila</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
+      <div>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">I spent 20+ years in architectural lighting — not just selling it, but living inside its full lifecycle: how a spec gets written, how a project gets won, how a team gets trained, how a system breaks down. I know exactly where the money gets lost, and I know what it looks like when the right capability meets the wrong process.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85;margin-bottom:16px">Off the portfolio: I'm a hiker, avid reader, Brazilian Jiu Jitsu practitioner, yogi, and kayaker. These aren't just escapes — they're disciplines that demand presence, adaptation, and respect for what you don't yet understand. I mentor and empower young women in tech and business, because the future belongs to people who can see what's missing and have the courage to build it. That mentorship mindset is the same one I bring to every engagement.</p>
+        <p style="font-size:14px;color:var(--muted);line-height:1.85">Teloric exists because I saw a pattern: most companies don't have an AI problem or a systems problem. They have a translation problem — and a people problem. The tools exist. The infrastructure is live. But somewhere between the executive decision and the team on the ground, adoption stalls because no one translated the vision into action. My work is to sit at that intersection, build that bridge, and mentor the people who make it real.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <img src="micaila-portrait.jpg" alt="Micaila Vaughn" style="width:100%;border-radius:3px;border:1px solid var(--line);object-fit:cover;aspect-ratio:3/4">
+        <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:20px 24px">
+          <div style="font-size:9.5px;font-weight:600;letter-spacing:0.18em;color:var(--teal);text-transform:uppercase;margin-bottom:10px">Sectors at the Intersection</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">Architectural Lighting &nbsp;·&nbsp; Manufacturing &nbsp;·&nbsp; Emerging Technology &nbsp;·&nbsp; Change Management</div>
+        </div>
+        <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:20px 24px">
+          <div style="font-size:9.5px;font-weight:600;letter-spacing:0.18em;color:var(--teal);text-transform:uppercase;margin-bottom:10px">The Teloric Approach</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">Navigate &nbsp;·&nbsp; Operationalize &nbsp;·&nbsp; Monetize — making the unimaginable understandable, adoptable, and monetizable for the humans who have to work with it every day.</div>
+        </div>
+        <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:20px 24px">
+          <div style="font-size:9.5px;font-weight:600;letter-spacing:0.18em;color:var(--teal);text-transform:uppercase;margin-bottom:10px">Currently</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.7">Available for strategic engagements, advisory roles, and executive consulting. Based in Denver, CO — open to travel.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+        <div class="sec-label">What Teloric Does</div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px">
+
+      <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:24px;transition:border-color 0.25s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--line)'">
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.16em;color:var(--aqua);text-transform:uppercase;margin-bottom:10px">AI Readiness &amp; Strategy</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.7">Most organizations aren't starting from zero — they already have tools, pilots, maybe a few internal champions. The gap is knowing which investments are worth scaling, how they connect to the systems you're already running, and whether a governance framework exists to protect the organization as it scales. That foundation is non-negotiable. That's where we start.</div>
+      </div>
+
+      <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:24px;transition:border-color 0.25s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--line)'">
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.16em;color:var(--aqua);text-transform:uppercase;margin-bottom:10px">Business Intelligence Activation</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.7">Your data is already talking. Your BI tools are already running. The problem is that no one built the bridge between what the system can see and what your team actually needs to make decisions. We close that gap — and surface what's been sitting there the whole time.</div>
+      </div>
+
+      <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:24px;transition:border-color 0.25s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--line)'">
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.16em;color:var(--aqua);text-transform:uppercase;margin-bottom:10px">AI Integration &amp; Implementation</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.7">The tool is rarely the problem. The missing link is almost always the same: the AI doesn't talk to the systems your team lives in. We map the workflow, find the break points, and build the connections that make the investment actually work — with data security and access governance designed in from the start, not bolted on after.</div>
+      </div>
+
+      <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:24px;transition:border-color 0.25s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--line)'">
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.16em;color:var(--aqua);text-transform:uppercase;margin-bottom:10px">Workforce Transformation</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.7">You can deploy the best AI in the world and watch it collect dust. The limiting factor is never the technology — it's the people who have to trust it, learn it, and eventually rely on it. We redesign how teams work from the inside out, around how they actually operate.</div>
+      </div>
+
+      <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:24px;transition:border-color 0.25s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--line)'">
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.16em;color:var(--aqua);text-transform:uppercase;margin-bottom:10px">AI Literacy &amp; Prompt Engineering</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.7">Most AI training teaches people what the tool can do. We teach people how to think in it. That difference shows up immediately — in adoption rates, output quality, and whether your investment survives contact with the real world. Built for the humans who have to use it every day, not just the ones who bought it.</div>
+      </div>
+
+      <div style="background:var(--surf);border:1px solid var(--line);border-radius:3px;padding:24px;transition:border-color 0.25s" onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--line)'">
+        <div style="font-size:10.5px;font-weight:600;letter-spacing:0.16em;color:var(--aqua);text-transform:uppercase;margin-bottom:10px">Change Management</div>
+        <div style="font-size:13.5px;color:var(--muted);line-height:1.7">Buying the software is the easy part. Getting a team to actually change how they work — that requires someone who understands both what the technology demands and what the humans need. That's the work most implementations skip. And it's exactly where the ROI is lost or won.</div>
+      </div>
+
+    </div>
+
+    <div style="border-left:2px solid var(--teal);padding:18px 24px;background:rgba(15,111,115,0.06);border-radius:0 3px 3px 0">
+      <p style="font-family:var(--serif);font-style:italic;font-size:16px;color:var(--text);line-height:1.7;margin:0">Her specialty is translation — making the unimaginable <strong style="color:var(--aqua);font-style:normal">understandable, adoptable, and monetizable</strong> for the humans who have to work with it every day.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-left">Micaila Vaughn &mdash; 2026</span>
+    <div class="footer-right">
+      <a href="mailto:micailajanevaughn@gmail.com">Email</a>
+      <a href="#">LinkedIn</a>
+      <a onclick="show('coverletter')" style="cursor:pointer">Cover Letter</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- VIEW: EXPERIENCE                                           -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="view" id="view-experience">
+
+  <section class="section" style="padding-top:64px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:28px">
+      <div class="sec-label" style="margin-bottom:0">Professional Experience</div>
+      <button class="btn-print" onclick="printResume()">
+        <svg viewBox="0 0 24 24"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Download Resume PDF
+      </button>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-dates">Feb 2026 &mdash; Present</div>
+        <div class="exp-company">Teloric</div>
+        <div class="exp-loc">Denver, CO</div>
+      </div>
+      <div>
+        <div class="exp-title">Founder / Principal Consultant</div>
+        <ul class="exp-bullets">
+          <li>Founded Teloric as the strategic layer between AI/BI capability and real-world operations &mdash; designing repeatable systems, training frameworks, and operational infrastructure that pay for themselves immediately, putting companies back on the map and in front of the next generation of clients and talent.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-dates">Aug 2021 &mdash; Feb 2026</div>
+        <div class="exp-company">Coronet LED</div>
+        <div class="exp-loc">Denver, CO (Remote)</div>
+      </div>
+      <div>
+        <div class="exp-title">Northwest Regional Sales Manager, Western U.S. &amp; Canada</div>
+        <ul class="exp-bullets">
+          <li>Doubled geographic sales territory in 2025 &mdash; executed full realignment of West Coast rep agency networks, replacing underperforming partnerships across 10+ markets including Seattle, San Francisco, Portland, and Vancouver.</li>
+          <li>Built deep specifier loyalty and brand recognition across the Western U.S. &mdash; sustained relationships with lighting designers, architects, and consultants who became consistent sources of high-value project work.</li>
+          <li>Designed and executed pop-up showcase events targeting lighting designers and niche specifiers &mdash; replaced stale sales calls with curated, experience-driven brand moments that generated $3&ndash;5M in identifiable project business per cycle.</li>
+          <li>Conducted an independent operational audit across the full manufacturing chain &mdash; quoting, engineering, customer service, production, and shipping. Used AI to map bottlenecks and model solutions.</li>
+          <li>Designed and implemented rep and regional onboarding programs from scratch using AI and automation &mdash; lighting-specific curriculum, virtual and field components, including an archive training program of &ldquo;live never-ending meetings&rdquo; accessible via AI with governance and parameters, plus a live landing page for project coordination.</li>
+          <li>Served as internal AI beta tester for Coronet &mdash; evaluated enterprise versions of ChatGPT, Perplexity, Claude, and Microsoft Copilot across real operational use cases. Copilot testing surfaced an organizational knowledge ecosystem that even their ERP could not access or index &mdash; a finding with significant implications for institutional knowledge management.</li>
+          <li>Diagnosed process breakdowns between sales and IT &mdash; built live data systems with backend integration giving real-time visibility into pipeline and production, closing operational gaps driving revenue leakage.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-dates">June 2019 &mdash; July 2021</div>
+        <div class="exp-company">Luxxbox</div>
+        <div class="exp-loc">United States (Remote)</div>
+      </div>
+      <div>
+        <div class="exp-title">Senior Sales Manager</div>
+        <ul class="exp-bullets">
+          <li>Led U.S. sales strategy for an international acoustic and lighting manufacturer, growing revenue 35% through a nationwide rep agency network built from scratch.</li>
+          <li>Created go-to-market strategy specifically targeting the design community &mdash; events and touchpoints that positioned an unknown international brand in front of the specifiers and reps who actually drive project decisions.</li>
+          <li>Built SOPs, operational procedures, and CRM structure from the ground up to support pipeline tracking and lead management at scale across the U.S.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-dates">Jan 2018 &mdash; June 2019</div>
+        <div class="exp-company">Calyx Theory</div>
+        <div class="exp-loc">Denver, CO &mdash; Experiential / UX Design</div>
+      </div>
+      <div>
+        <div class="exp-title">Founder</div>
+        <ul class="exp-bullets">
+          <li>Served design-driven businesses &mdash; Boyd, ALVA Lighting, MakeWest &mdash; on brand positioning, specification engagement, and market development. Pushed clients outside conventional approaches, driving brand testing and new client acquisition angles.</li>
+          <li>Embedded with fabrication teams including Vonmod to examine workflow challenges across client acquisition, close rate, ideal client design, quoting, and production &mdash; building an ERP from the ground up (Trello to Eenergii), exposing how documentation gaps directly impact operational efficiency.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-dates">Feb 2011 &mdash; Dec 2017</div>
+        <div class="exp-company">Visual Interest</div>
+        <div class="exp-loc">Denver, CO</div>
+      </div>
+      <div>
+        <div class="exp-title">Associate Sales &amp; Marketing Director</div>
+        <ul class="exp-bullets">
+          <li>Led the outside specification sales team &mdash; primary liaison for 80+ manufacturers, agency leadership, and the design community. Top-producing salesperson six consecutive years; contributed to ~59% agency revenue growth during tenure.</li>
+          <li>Created SparkLab as a direct solution to a structural agency problem: 100+ manufacturer lines competing for limited specifier attention. Designed as an experiential model that brought manufacturers, specifiers, and rep agencies together in a format that actually moved specifications. Still running 10 years later &mdash; widely referenced, widely copied.</li>
+          <li>Negotiated merger of Pure Lighting LLC into Visual Interest &mdash; structured as a 4-year buyout. Transitioned manufacturer partnerships and launched the agency&rsquo;s boutique arm heading up decorative lighting product direction.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div>
+        <div class="exp-dates">May 2007 &mdash; June 2011</div>
+        <div class="exp-company">Pure Lighting LLC</div>
+        <div class="exp-loc">Denver, CO</div>
+      </div>
+      <div>
+        <div class="exp-title">Founder / Owner</div>
+        <ul class="exp-bullets">
+          <li>Founded and operated an independent boutique architectural lighting rep agency from the ground up &mdash; manufacturer relationships, 200+ client accounts spanning developer, distributor, contractor, interiors, architecture, engineer, lighting designer, and end user. Full business operations. Grew to successful merger in 2011.</li>
+        </ul>
+      </div>
+    </div>
+
+
+  </section>
+
+  <section class="section">
+    <div class="sec-label">Education &amp; Certifications</div>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-deg">Bachelor of Industrial Design<br><em style="font-size:13px;color:var(--teal)">Lighting &amp; Furniture Focus</em></div>
+        <div class="edu-school">Art Institute of Colorado</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">Interior Design &amp;<br>Construction Management Studies</div>
+        <div class="edu-school">Colorado State University</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">NLP Practitioner Certification</div>
+        <div class="edu-school">&nbsp;</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-deg">AI Business Strategy &amp; Implementation</div>
+        <div class="edu-school">Continuing Education</div>
+        <span class="edu-badge">In Progress</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-left">Micaila Vaughn &mdash; 2026</span>
+    <div class="footer-right">
+      <a onclick="show('overview')" style="cursor:pointer">Overview</a>
+      <a onclick="show('coverletter')" style="cursor:pointer">Cover Letter</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- VIEW: SKILLS                                               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="view" id="view-skills">
+
+  <section class="section" style="padding-top:64px">
+    <div class="sec-label">Core Competencies</div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Domain Expertise</div>
+      <div class="tags">
+        <span class="tag hi">Lighting Industry Strategist</span>
+        <span class="tag hi">Architectural Lighting</span>
+        <span class="tag hi">Manufacturing + Sales Leadership</span>
+        <span class="tag">Specification Sales</span>
+        <span class="tag">Rep Network Management</span>
+        <span class="tag">National Account Management</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">AI &amp; Organizational Strategy</div>
+      <div class="tags">
+        <span class="tag hi">AI Strategy</span>
+        <span class="tag hi">Organizational Systems Design</span>
+        <span class="tag hi">Business Process Transformation</span>
+        <span class="tag hi">Change Management</span>
+        <span class="tag">Workforce Transformation</span>
+        <span class="tag">Knowledge Architecture</span>
+        <span class="tag">Legacy Industry Transformation</span>
+      </div>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Operations &amp; Systems</div>
+      <div class="tags">
+        <span class="tag">CRM / ERP / BI Optimization</span>
+        <span class="tag">Workflow Automation &amp; SOPs</span>
+        <span class="tag">Cross-Functional Leadership</span>
+        <span class="tag">Pipeline Visibility</span>
+        <span class="tag">Operational AI Adoption</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-label">AI Platforms &amp; Tools</div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">Conversational &amp; Reasoning Models</div>
+      <div class="tags">
+        <span class="tool-pill">ChatGPT (multiple models)</span>
+        <span class="tool-pill">Claude (Anthropic)</span>
+        <span class="tool-pill">Perplexity AI</span>
+        <span class="tool-pill">Google Gemini</span>
+        <span class="tool-pill">Grok</span>
+        <span class="tool-pill">Manus</span>
+        <span class="tool-pill">Otter.ai</span>
+        <span class="tool-pill">Loom</span>
+      </div>
+      <p style="font-size:12px;color:var(--dim);font-style:italic;margin-top:10px">Used for structured reasoning, document analysis, workflow design, strategy development, and knowledge capture &mdash; not basic prompting.</p>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">AI Knowledge &amp; Research Systems</div>
+      <div class="tags">
+        <span class="tool-pill">NotebookLM</span>
+        <span class="tool-pill">Microsoft Copilot (M365 / Outlook / Copilot for Sales)</span>
+      </div>
+      <p style="font-size:12px;color:var(--dim);font-style:italic;margin-top:10px">Document ingestion, research synthesis, source grounding, project knowledge bases, enterprise knowledge discovery.</p>
+    </div>
+
+    <div class="skill-group">
+      <div class="skill-group-title">AI Creative &amp; Design Tools</div>
+      <div class="tags">
+        <span class="tool-pill">Canva AI</span>
+        <span class="tool-pill">Framer AI</span>
+        <span class="tool-pill">Suno AI</span>
+        <span class="tool-pill">Adobe Firefly</span>
+      </div>
+    </div>
+  </section>
+
+  <footer style="margin-top:80px">
+    <span class="footer-left">Micaila Vaughn &mdash; 2026</span>
+    <div class="footer-right">
+      <a onclick="show('experience')" style="cursor:pointer">Experience</a>
+      <a onclick="show('contact')" style="cursor:pointer">Contact</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- VIEW: COVER LETTER                                         -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="view active" id="view-coverletter">
+  <div class="cl-wrap">
+
+    <p class="cl-salutation">Lara,</p>
+
+    <div class="cl-body">
+      <p>
+        You asked for my resume recently — and I appreciate your patience. I could have sent a PDF. Instead, I used that time to understand what you're actually navigating.
+      </p>
+      <p>
+        Based on my read of where things stand, USESI operates across 14 companies — a portfolio built on electrical distribution, with lighting-specific touchpoints woven throughout every one of them. SSG, as the third-party partner across the organization, is implementing Eclipse, piloting LLMs, building the infrastructure. But as those tools reach the lighting operations across those companies, they'll need someone who understands what lighting actually requires — how the spec process works, how margin moves, how relationships drive decisions — before any of it can be trained to serve it. That's not an IT gap. It's a translation gap.
+      </p>
+      <p>
+        That gap shows up everywhere. In how ERP systems like Eclipse get adopted — or don't. In why live pipeline data is still missing across the regions. In why salespeople aren't getting the competitive intelligence they need to close. In why lighting departments don't have the bandwidth to train people up from scratch.
+      </p>
+      <p>
+        What I'd build isn't a solution for one location — it's a foundation. One that translates the actual needs of lighting-specific operations into something that integrates, scales, and works regionally across the portfolio. Every company in the USESI family has lighting touchpoints. The metrics that matter in lighting don't map cleanly onto electrical distribution. The relationships, the spec process, the way margin moves — that institutional knowledge has to be captured, structured, and trained into the system before it can serve the whole organization.
+      </p>
+      <p>
+        <strong>That's the layer. And that's specifically why I'm here.</strong>
+      </p>
+      <p>
+        Specifically: a lighting-specific training and onboarding program built to sit alongside the existing leadership curriculum — giving it the domain depth it currently lacks. Virtual components the parent company can administer at scale, hands-on regional rotations that reflect how lighting actually works in the field, and AI-enabled systems that make the whole thing repeatable and measurable. An AI-native evolution of the model I've built before — automated self-learning onboarding, technical and leadership tracks, knowledge capture — scaled to USESI's footprint and standards.
+      </p>
+      <p>
+        Beyond training, I'd serve as the strategic translator between what SSG is building technically and what the lighting regions actually need operationally. That includes helping the BI and AI teams understand lighting's real data lifecycle — where information lives, how it moves, and what it actually takes to surface actionable intelligence from an industry built on relationships and timing.
+      </p>
+      <p>
+        Done right, this doesn't just improve onboarding. <strong>It builds the organizational infrastructure that makes everything USESI is investing in actually land</strong> — and starts to solve the talent pipeline problem. The companies that struggle to recruit are often the ones without a clear path in, without visible culture, without a modern presence. There's a parallel opportunity here to lift the brand from analog to digital — UX, social, digital presence — and breathe a new generation of energy into a company with a century of credibility behind it.
+      </p>
+      <p>
+        I'm at SXSW this week in the AI and Emerging Tech tracks — specifically sessions on how organizations are restructuring around AI-native workflows. I'll be back the week of March 17th and would love to reconnect — to keep building this out together, or to hear how it's landed with the team.
+      </p>
+    </div>
+
+    <div class="cl-closing">
+      <p>Micaila</p>
+      <div class="cl-sig">Micaila Vaughn</div>
+    </div>
+
+    <div class="cl-portfolio-cta">
+      <button class="cl-cta-btn" onclick="show('overview')">
+        View Full Portfolio &nbsp;→
+      </button>
+      <p class="cl-cta-sub">Experience &nbsp;·&nbsp; Skills &nbsp;·&nbsp; Background</p>
+    </div>
+
+  </div>
+
+  <footer style="margin-top:80px">
+    <span class="footer-left">Micaila Vaughn &mdash; 2026</span>
+    <div class="footer-right">
+      <a onclick="show('overview')" style="cursor:pointer">Overview</a>
+      <a onclick="show('experience')" style="cursor:pointer">Experience</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- VIEW: CONTACT                                              -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="view" id="view-contact">
+
+  <section class="section" style="padding-top:64px">
+    <div class="sec-label">Get in Touch</div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-card-label">Phone</div>
+        <a class="contact-card-val" href="tel:3039817338">303.981.7338</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Email</div>
+        <a class="contact-card-val" href="mailto:micailajanevaughn@gmail.com">micailajanevaughn@gmail.com</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">LinkedIn</div>
+        <a class="contact-card-val" href="#">linkedin.com/in/micailavaughn</a>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-label">Location</div>
+        <span class="contact-card-val">Denver, CO</span>
+      </div>
+      <p class="contact-note">
+        Available for strategic advisory engagements, consulting, and senior leadership roles in the architectural lighting, AI systems, or operations intelligence space.
+      </p>
+    </div>
+  </section>
+
+  <footer style="margin-top:80px">
+    <span class="footer-left">Micaila Vaughn &mdash; 2026</span>
+    <div class="footer-right">
+      <a onclick="show('overview')" style="cursor:pointer">Overview</a>
+      <a onclick="show('coverletter')" style="cursor:pointer">Cover Letter</a>
+    </div>
+  </footer>
+</div>
+
+</div><!-- /page -->
+
+<script>
+function show(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  const tabs = {overview:0,experience:1,skills:2,coverletter:3,contact:4};
+  document.querySelectorAll('.nav-tab')[tabs[id]].classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function dismissSplash() {
+  const s = document.getElementById('splash');
+  s.classList.add('hide');
+  setTimeout(() => s.style.display = 'none', 700);
+}
+function printResume() {
+  var exp = document.getElementById('view-experience').cloneNode(true);
+  ['footer','.btn-print','.btn-print-wrap'].forEach(function(sel){
+    var el = exp.querySelector(sel); if (el) el.parentNode.removeChild(el);
+  });
+  var hero = document.querySelector('.hero-left');
+  var name = hero ? hero.querySelector('.hero-name') : null;
+  var titles = hero ? hero.querySelector('.hero-titles') : null;
+  var contact = hero ? hero.querySelector('.hero-contact') : null;
+  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Micaila Vaughn \u2014 Resume</title>'
+    + '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">'
+    + '<style>'
+    + '*{box-sizing:border-box;margin:0;padding:0}'
+    + 'body{background:#fff;color:#1a1a1a;font-family:Inter,system-ui,sans-serif;font-size:10.5pt;line-height:1.65;padding:48px 64px}'
+    + '.resume-name{font-family:"Playfair Display",Georgia,serif;font-size:26pt;font-weight:700;color:#0E1113;margin-bottom:6px}'
+    + '.hero-titles{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}'
+    + '.hero-title{font-size:8.5pt;color:#4A6068;letter-spacing:0.08em;text-transform:uppercase}'
+    + '.hero-title+.hero-title::before{content:"\u00b7";margin-right:6px;color:#0F6F73}'
+    + '.hero-contact{display:flex;gap:20px;font-size:9pt;color:#4A6068;margin-bottom:24px;flex-wrap:wrap}'
+    + '.hero-contact a{color:#4A6068;text-decoration:none}'
+    + 'hr{border:none;border-top:1px solid #d8e4e8;margin:0 0 24px}'
+    + '.sec-label{font-size:7.5pt;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:#0F6F73;border-bottom:1px solid #0F6F73;padding-bottom:5px;margin-bottom:18px}'
+    + '.section{margin-bottom:0;padding:24px 0}'
+    + '.exp-item{display:grid;grid-template-columns:155px 1fr;gap:20px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #eef2f4}'
+    + '.exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}'
+    + '.exp-dates{font-size:8pt;color:#4A6068;margin-bottom:3px}'
+    + '.exp-company{font-size:9.5pt;font-weight:600;color:#0F6F73}'
+    + '.exp-loc{font-size:7.5pt;color:#8A9BA3;margin-top:2px}'
+    + '.exp-title{font-size:10pt;font-weight:600;color:#0E1113;margin-bottom:7px}'
+    + '.exp-bullets{list-style:none;padding:0}'
+    + '.exp-bullets li{font-size:9pt;color:#2a3a40;line-height:1.75;margin-bottom:5px;padding-left:14px;position:relative}'
+    + '.exp-bullets li::before{content:"\u2014";position:absolute;left:0;color:#0F6F73}'
+    + '.btn-print{display:none}'
+    + '@media print{body{padding:28px 40px}}'
+    + '</style></head><body>'
+    + '<div class="resume-name">' + (name ? name.innerHTML : 'Micaila Vaughn') + '</div>'
+    + (titles ? '<div class="hero-titles">' + titles.innerHTML + '</div>' : '')
+    + (contact ? '<div class="hero-contact">' + contact.innerHTML + '</div>' : '')
+    + '<hr>'
+    + exp.innerHTML
+    + '</body></html>';
+  var blob = new Blob([html], {type:'text/html'});
+  window.open(URL.createObjectURL(blob), '_blank');
+}
+</script>
+</body>
+</html>
